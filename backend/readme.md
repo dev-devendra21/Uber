@@ -42,3 +42,35 @@ Creates a new user account with the provided details and returns a JSON response
 - **500 Internal Server Error:** If there is an error creating the user account.
 
 
+# User Routes
+
+The User Routes define the endpoints for user-related operations.
+
+## Endpoints
+
+### POST /users/login
+
+Authenticates a user with the provided email and password and returns a JSON response with the authentication token.
+
+**Request Body:**
+
+* `email`: String (required)
+* `password`: String (required)
+
+**Example Request Body:**
+```json
+{
+  "email": "johndoe@example.com",
+  "password": "password123"
+}
+
+```
+
+**Example Response Body:**
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaGFuIERvZSIsImVtYWlsIjoiam9obmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTUxNjIzOTAyMn0.8gwLO4Qa8hV4H0x4k6MjU"
+}
+
+```
+
