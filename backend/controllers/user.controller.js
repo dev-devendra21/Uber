@@ -3,7 +3,7 @@ import userModel from "../models/user.model.js";
 import userService from "../services/user.service.js";
 import { validationResult } from 'express-validator';
 
-export const registerUser = async (req, res, next) => {
+export const registerUser = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -26,7 +26,7 @@ export const registerUser = async (req, res, next) => {
     res.status(201).json({ token, user });
 };
 
-export const loginUser = async (req, res, next) => {
+export const loginUser = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -55,20 +55,20 @@ export const loginUser = async (req, res, next) => {
     res.status(200).json({ token, user });
 };
 
-export const getUserProfile = async (req, res, next) => {
+export const getUserProfile = async (req, res) => {
     res.status(200).json(req.user);
 };
 
 
-export const logoutUser = async (req, res, next) => {
-    res.clearCookie('token');
+export const logoutUser = async (req, res) => {
     const token = req.cookies.token || req.headers.authorization.split("Bearer ")[1];
-
+    
     if (!token) {
         return res.status(401).json({ message: "Unauthorized" });
     }
-
+    
     await blacklistTokenModel.create({ token });
-
+    
+    res.clearCookie('token');
     res.status(200).json({ message: 'Logout successful' });
 };
